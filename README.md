@@ -186,7 +186,10 @@ grails war target\barbedwire.war
 dir /o:gd target
 copy target\barbedwire.war C:\LocalApps\apache-tomcat-8.5.61\webapps
 mysqldump -u root -p barbedwire_production > barbedwire-production-20220412.sql
+grails stats
+```
 
+```
 …or push an existing repository from the command line [SSH]
 
 git remote add origin git@github.com:ashburndev/barbedwire.git
@@ -415,6 +418,22 @@ remote: Resolving deltas: 100% (20/20), done.
 To github.com:ashburndev/barbedwire.git
  * [new branch]      main -> main
 branch 'main' set up to track 'origin/main'.
+
+C:\Users\David Holberton\myprojs\barbedwire>
+C:\Users\David Holberton\myprojs\barbedwire>grails stats
+
+| Environment set to development....
+
+    +----------------------+-------+-------+
+    | Name                 | Files |  LOC  |
+    +----------------------+-------+-------+
+    | Controllers          |     2 |   164 |
+    | Domain Classes       |     2 |    15 |
+    | Unit Tests           |     4 |   252 |
+    +----------------------+-------+-------+
+    | Totals               |     8 |   431 |
+    +----------------------+-------+-------+
+
 
 C:\Users\David Holberton\myprojs\barbedwire>
 ```
