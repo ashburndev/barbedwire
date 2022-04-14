@@ -1,8 +1,8 @@
 package barbedwire
-class Comment {
+class DocumentCountry {
     Date dateCreated
     Date lastUpdated
-    String body
+    String code
     static belongsTo = [document:Document]
     static constraints = {
     }

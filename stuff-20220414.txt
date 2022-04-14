@@ -1,0 +1,877 @@
+4:13 AM 4/14/2022
+
+mysqld
+mysql -u root -p
+mysqladmin -u root -p shutdown
+
+https://www.archives.gov/files/cui/registry/policy-guidance/registry-documents/20161214-country-trigraph-codes.pdf
+https://www.iso.org/iso-3166-country-codes.html
+https://www.iso.org/obp/ui/#search
+
+https://www.manning.com/books/elasticsearch-in-action-second-edition?query=elasticsearch
+https://github.com/madhusudhankonda
+https://github.com/madhusudhankonda/elasticsearch-in-action
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/array.html
+
+https://en.wikipedia.org/wiki/James_Gosling
+https://en.wikipedia.org/wiki/Yukihiro_Matsumoto
+https://en.wikipedia.org/wiki/Guy_L._Steele_Jr.
+https://en.wikipedia.org/wiki/Niklaus_Wirth
+
+creator of java programming language - James Gosling [CAN] - National Hockey League
+creator of ruby programming language - Yukihiro Matsumoto [JPN] - Major League Baseball
+creator of cobol programming language - Grace Murray Hopper [USA] - National Football League
+creator of lisp programming language - John McCarthy
+creator of fortran programming language - John Backus
+creator of python programming language - Guido van Rossum
+creator of groovy programming language - James Strachan
+creator of c programming language - Dennis Ritchie
+creator of pascal programming language - Niklaus Wirth
+
+James Gosling describes using Java in Canada to program a statistics application for the National Hockey League
+
+Yukihiro Matsumoto describes using Ruby in Japan to program a statistics application for Major League Baseball
+
+Grace Hopper describes using Cobol in the United States to program a statistics application for the National Football League
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+I previously downloaded Elasticsearh and Kibana zip files, and unzipped them in C:\LocalApps
+
+03/31/2022  05:18 PM       318,595,362 elasticsearch-8.1.2-windows-x86_64.zip
+03/31/2022  05:18 PM               169 elasticsearch-8.1.2-windows-x86_64.zip.sha512
+03/31/2022  05:18 PM               488 elasticsearch-8.1.2-windows-x86_64.zip.asc
+03/31/2022  05:21 PM       393,500,579 kibana-8.1.2-windows-x86_64.zip
+03/31/2022  05:21 PM               162 kibana-8.1.2-windows-x86_64.zip.sha512
+03/31/2022  05:21 PM               488 kibana-8.1.2-windows-x86_64.zip.asc
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+cd C:\LocalApps\elasticsearch-8.1.2
+.\bin\elasticsearch.bat
+https://192.168.86.246:9200/
+	
+name	"DPHXPS15"
+cluster_name	"elasticsearch"
+cluster_uuid	"1DtJ9_vkSu-cdpqCDClPrw"
+version	
+number	"8.1.2"
+build_flavor	"default"
+build_type	"zip"
+build_hash	"31df9689e80bad366ac20176aa7f2371ea5eb4c1"
+build_date	"2022-03-29T21:18:59.991429448Z"
+build_snapshot	false
+lucene_version	"9.0.0"
+minimum_wire_compatibility_version	"7.17.0"
+minimum_index_compatibility_version	"7.0.0"
+tagline	"You Know, for Search"
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+cd C:\LocalApps\kibana-8.1.2
+.\bin\kibana.bat
+
+http://localhost:5601/
+http://localhost:5601/app/dev_tools#/console
+
+Get books/_stats
+
+Get books/_count
+
+{
+  "count" : 10,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  }
+}
+
+Get books/_doc/1
+
+{
+  "_index" : "books",
+  "_id" : "1",
+  "_version" : 1,
+  "_seq_no" : 0,
+  "_primary_term" : 1,
+  "found" : true,
+  "_source" : {
+    "title" : "Core Java Volume I – Fundamentals",
+    "author" : "Cay S. Horstmann",
+    "edition" : 11,
+    "synopsis" : "Java reference book that offers a detailed explanation of various features of Core Java, including exception handling, interfaces, and lambda expressions. Significant highlights of the book include simple language, conciseness, and detailed examples.",
+    "amazon_rating" : 4.6,
+    "release_date" : "2018-08-27",
+    "tags" : [
+      "Programming Languages, Java Programming"
+    ]
+  }
+}
+
+Get books/_mapping
+
+{
+  "books" : {
+    "mappings" : {
+      "properties" : {
+        "amazon_rating" : {
+          "type" : "float"
+        },
+        "author" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "edition" : {
+          "type" : "long"
+        },
+        "release_date" : {
+          "type" : "date"
+        },
+        "synopsis" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "tags" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "title" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+PUT wiredocs-index-one/_doc/1
+{
+  "title":"Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+  "summary":"James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+  "publication_date":"2022-04-14",
+  "authors":"James Gosling Yukihiro Matsumoto Grace Hopper",
+  "countries":"CAN JPN USA",
+  "topics":"JAVA RUBY COBOL",
+  "non-state-actors":"National Hockey League Major League Baseball National Football League"
+}
+
+
+PUT wiredocs-index-two/_doc/1
+{
+  "title":"Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+  "summary":"James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+  "publication_date":"2022-04-14",
+  "authors":["James Gosling", "Yukihiro Matsumoto", "Grace Hopper"],
+  "countries":["CAN", "JPN", "USA"],
+  "topics":["JAVA", "RUBY", "COBOL"],
+  "non-state-actors":[
+    "National Hockey League",
+    "Major League Baseball",
+    "National Football League"]
+}
+
+PUT wiredocs-index-two/_doc/2
+{
+  "title":"Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+  "summary":"James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+  "publication_date":"2022-04-15",
+  "authors":["James Gosling", "Yukihiro Matsumoto", "Grace Hopper"],
+  "countries":["CAN", "JPN", "USA"],
+  "topics":["JAVA", "RUBY", "COBOL"],
+  "non_state_actors":[
+    "National Hockey League",
+    "Major League Baseball",
+    "National Football League"]
+}
+
+PUT wiredocs-index-two/_doc/3
+{
+  "title":"Programming Hockey statistics using Java in Canada",
+  "summary":"James Gosling describes programming hockey statistics using Java in Canada",
+  "publication_date":"2022-04-16",
+  "authors":["James Gosling"],
+  "countries":["CAN"],
+  "topics":["JAVA"],
+  "non_state_actors":["National Hockey League"]
+}
+
+PUT wiredocs-index-two/_doc/4
+{
+  "title":"Programming Baseball statistics using Ruby in Japan",
+  "summary":"Yukihiro Matsumoto describes programming baseball statistics using Ruby in Japan",
+  "publication_date":"2022-04-17",
+  "authors":["Yukihiro Matsumoto"],
+  "countries":["JPN"],
+  "topics":["RUBY"],
+  "non_state_actors":["Major League Baseball"]
+}
+
+PUT wiredocs-index-two/_doc/5
+{
+  "title":"Programming Football statistics using Cobol in the United States",
+  "summary":"Grace Hopper describes programming baseball statistics using Cobol in the United States",
+  "publication_date":"2022-04-18",
+  "authors":["Grace Hopper"],
+  "countries":["USA"],
+  "topics":["COBOL"],
+  "non_state_actors":["National Football League"]
+}
+
+GET wiredocs-index-two/_doc/1
+GET wiredocs-index-two/_doc/2
+GET wiredocs-index-two/_doc/3
+GET wiredocs-index-two/_doc/4
+GET wiredocs-index-two/_doc/5
+GET wiredocs-index-two/_count
+GET wiredocs-index-two/_mapping
+
+{
+  "count" : 5,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "match": {
+      "countries": "CAN"
+    }
+  }
+}
+
+{
+  "took" : 2,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : 0.65877354,
+    "hits" : [
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "3",
+        "_score" : 0.65877354,
+        "_source" : {
+          "title" : "Programming Hockey statistics using Java in Canada",
+          "summary" : "James Gosling describes programming hockey statistics using Java in Canada",
+          "publication_date" : "2022-04-16",
+          "authors" : [
+            "James Gosling"
+          ],
+          "countries" : [
+            "CAN"
+          ],
+          "topics" : [
+            "JAVA"
+          ],
+          "non_state_actors" : [
+            "National Hockey League"
+          ]
+        }
+      },
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "1",
+        "_score" : 0.42349726,
+        "_source" : {
+          "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "summary" : "James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "publication_date" : "2022-04-14",
+          "authors" : [
+            "James Gosling",
+            "Yukihiro Matsumoto",
+            "Grace Hopper"
+          ],
+          "countries" : [
+            "CAN",
+            "JPN",
+            "USA"
+          ],
+          "topics" : [
+            "JAVA",
+            "RUBY",
+            "COBOL"
+          ],
+          "non_state_actors" : [
+            "National Hockey League",
+            "Major League Baseball",
+            "National Football League"
+          ]
+        }
+      },
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "2",
+        "_score" : 0.42349726,
+        "_source" : {
+          "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "summary" : "James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "publication_date" : "2022-04-15",
+          "authors" : [
+            "James Gosling",
+            "Yukihiro Matsumoto",
+            "Grace Hopper"
+          ],
+          "countries" : [
+            "CAN",
+            "JPN",
+            "USA"
+          ],
+          "topics" : [
+            "JAVA",
+            "RUBY",
+            "COBOL"
+          ],
+          "non_state_actors" : [
+            "National Hockey League",
+            "Major League Baseball",
+            "National Football League"
+          ]
+        }
+      }
+    ]
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "_source": ["_id","title"],
+  "query": {
+    "match": {
+      "countries": "CAN"
+    }
+  }
+}
+
+{
+  "took" : 1,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : 0.65877354,
+    "hits" : [
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "3",
+        "_score" : 0.65877354,
+        "_source" : {
+          "title" : "Programming Hockey statistics using Java in Canada"
+        }
+      },
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "1",
+        "_score" : 0.42349726,
+        "_source" : {
+          "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States"
+        }
+      },
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "2",
+        "_score" : 0.42349726,
+        "_source" : {
+          "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States"
+        }
+      }
+    ]
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "match_phrase": {
+      "non_state_actors": "League"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "match_phrase_prefix": {
+      "non_state_actors": "National"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "match_phrase_prefix": {
+      "non_state_actors": "National"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "Japan",
+      "fields": ["title","summary"]
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "query_string": {
+      "default_field": "countries", 
+      "query": "CAN JPN",
+      "default_operator": "OR"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "query_string": {
+      "default_field": "countries", 
+      "query": "CAN JPN",
+      "default_operator": "AND"
+    }
+  }
+}
+
+
+https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
+GET /_search
+{
+  "query": {
+    "query_string": {
+      "query": "(new york city) OR (big apple)",
+      "default_field": "content"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "query_string": {
+      "query": "(CAN) OR (JPN)",
+      "default_field": "countries"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "query_string": {
+      "query": "(CAN) AND (JPN)",
+      "default_field": "countries"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "query_string": {
+      "query": "(CAN) OR (JPN)",
+      "default_field": "countries.keyword"
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "query_string": {
+      "query": "(CAN) AND (JPN)",
+      "default_field": "countries.keyword"
+    }
+  }
+}
+
+{
+  "took" : 1,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.3175471,
+    "hits" : [
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "1",
+        "_score" : 1.3175471,
+        "_source" : {
+          "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "summary" : "James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "publication_date" : "2022-04-14",
+          "authors" : [
+            "James Gosling",
+            "Yukihiro Matsumoto",
+            "Grace Hopper"
+          ],
+          "countries" : [
+            "CAN",
+            "JPN",
+            "USA"
+          ],
+          "topics" : [
+            "JAVA",
+            "RUBY",
+            "COBOL"
+          ],
+          "non_state_actors" : [
+            "National Hockey League",
+            "Major League Baseball",
+            "National Football League"
+          ]
+        }
+      },
+      {
+        "_index" : "wiredocs-index-two",
+        "_id" : "2",
+        "_score" : 1.3175471,
+        "_source" : {
+          "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "summary" : "James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+          "publication_date" : "2022-04-15",
+          "authors" : [
+            "James Gosling",
+            "Yukihiro Matsumoto",
+            "Grace Hopper"
+          ],
+          "countries" : [
+            "CAN",
+            "JPN",
+            "USA"
+          ],
+          "topics" : [
+            "JAVA",
+            "RUBY",
+            "COBOL"
+          ],
+          "non_state_actors" : [
+            "National Hockey League",
+            "Major League Baseball",
+            "National Football League"
+          ]
+        }
+      }
+    ]
+  }
+}
+
+
+... these searches fail (either syntax error, or just do not find any documents ...
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "match": {
+      "countries": ["CAN", "JPN"]
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "match_phrase": {
+      "countries": ["CAN", "JPN"]
+    }
+  }
+}
+
+GET wiredocs-index-two/_search
+{
+  "query": {
+    "query_string": {
+      "default_field": "countries.keyword", 
+      "query": "CAN JPN",
+      "default_operator": "AND"
+    }
+  }
+}
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+GET wiredocs-index-one/_doc/1
+{
+  "_index" : "wiredocs-index-one",
+  "_id" : "1",
+  "_version" : 1,
+  "_seq_no" : 0,
+  "_primary_term" : 1,
+  "found" : true,
+  "_source" : {
+    "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+    "summary" : "James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+    "publication_date" : "2022-04-14",
+    "authors" : "James Gosling Yukihiro Matsumoto Grace Hopper",
+    "countries" : "CAN JPN USA",
+    "topics" : "JAVA RUBY COBOL",
+    "non-state-actors" : "National Hockey League Major League Baseball National Football League"
+  }
+}
+
+GET wiredocs-index-one/_mapping
+
+{
+  "wiredocs-index-one" : {
+    "mappings" : {
+      "properties" : {
+        "authors" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "countries" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "non-state-actors" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "publication_date" : {
+          "type" : "date"
+        },
+        "summary" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "title" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "topics" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+GET wiredocs-index-two/_doc/1
+
+{
+  "_index" : "wiredocs-index-two",
+  "_id" : "1",
+  "_version" : 1,
+  "_seq_no" : 0,
+  "_primary_term" : 1,
+  "found" : true,
+  "_source" : {
+    "title" : "Programming Hockey, Baseball, and Football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+    "summary" : "James Gosling and Yukihiro Matsumoto and Grace Hopper describe programming hockey, baseball, and football statistics using Java, Ruby, and Cobol in Canada, Japan, and the United States",
+    "publication_date" : "2022-04-14",
+    "authors" : [
+      "James Gosling",
+      "Yukihiro Matsumoto",
+      "Grace Hopper"
+    ],
+    "countries" : [
+      "CAN",
+      "JPN",
+      "USA"
+    ],
+    "topics" : [
+      "JAVA",
+      "RUBY",
+      "COBOL"
+    ],
+    "non_state_actors" : [
+      "National Hockey League",
+      "Major League Baseball",
+      "National Football League"
+    ]
+  }
+}
+
+GET wiredocs-index-two/_mapping
+
+{
+  "wiredocs-index-two" : {
+    "mappings" : {
+      "properties" : {
+        "authors" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "countries" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "non_state_actors" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "publication_date" : {
+          "type" : "date"
+        },
+        "summary" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "title" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "topics" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+GET wiredocs-index-two/_doc/3
+
+{
+  "_index" : "wiredocs-index-two",
+  "_id" : "3",
+  "_version" : 1,
+  "_seq_no" : 2,
+  "_primary_term" : 1,
+  "found" : true,
+  "_source" : {
+    "title" : "Programming Hockey statistics using Java in Canada",
+    "summary" : "James Gosling describes programming hockey statistics using Java in Canada",
+    "publication_date" : "2022-04-16",
+    "authors" : [
+      "James Gosling"
+    ],
+    "countries" : [
+      "CAN"
+    ],
+    "topics" : [
+      "JAVA"
+    ],
+    "non_state_actors" : [
+      "National Hockey League"
+    ]
+  }
+}
+
+
+
+

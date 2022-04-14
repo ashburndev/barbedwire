@@ -1,8 +1,8 @@
 package barbedwire
-class Comment {
+class WireBinary {
     Date dateCreated
     Date lastUpdated
-    String body
+    byte[] data
     static belongsTo = [document:Document]
     static constraints = {
     }

@@ -1,9 +1,8 @@
 package barbedwire
-class Comment {
+class CarrierWaveFile {
     Date dateCreated
     Date lastUpdated
-    String body
-    static belongsTo = [document:Document]
+    byte[] data
     static constraints = {
     }
 }

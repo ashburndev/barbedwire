@@ -1,8 +1,8 @@
 package barbedwire
-class Comment {
+class Attachment {
     Date dateCreated
     Date lastUpdated
-    String body
+    static hasOne = [wireBinary:WireBinary]
     static belongsTo = [document:Document]
     static constraints = {
     }

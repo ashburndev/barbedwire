@@ -1,9 +1,8 @@
 package barbedwire
-class Comment {
+class Search {
     Date dateCreated
     Date lastUpdated
-    String body
-    static belongsTo = [document:Document]
+    static belongsTo = [wireUser:WireUser]
     static constraints = {
     }
 }

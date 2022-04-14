@@ -1,9 +1,8 @@
 package barbedwire
-class Comment {
+class WireImage {
     Date dateCreated
     Date lastUpdated
-    String body
-    static belongsTo = [document:Document]
+    static belongsTo = [wireBinary:WireBinary]
     static constraints = {
     }
 }

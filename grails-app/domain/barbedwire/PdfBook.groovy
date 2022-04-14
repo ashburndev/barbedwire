@@ -1,9 +1,10 @@
 package barbedwire
-class Comment {
+class PdfBook {
     Date dateCreated
     Date lastUpdated
-    String body
-    static belongsTo = [document:Document]
+    String title
+    String summary
+    static hasMany = [comments:Comment]
     static constraints = {
     }
 }

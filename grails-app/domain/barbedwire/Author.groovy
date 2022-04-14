@@ -1,9 +1,9 @@
 package barbedwire
-class Comment {
+class Author {
     Date dateCreated
     Date lastUpdated
-    String body
-    static belongsTo = [document:Document]
+    String name
+    static hasMany = [documents:Document]
     static constraints = {
     }
 }

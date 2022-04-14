@@ -1,9 +1,9 @@
 package barbedwire
-class Comment {
+class NonStateActor {
     Date dateCreated
     Date lastUpdated
-    String body
-    static belongsTo = [document:Document]
+    String name
+    static hasMany = [comments:Comment]
     static constraints = {
     }
 }
